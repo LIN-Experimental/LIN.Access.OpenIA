@@ -60,11 +60,15 @@ public class IAModelBuilder
     }
 
 
-    public void LoadFromUser(string message, string name)
+    public void LoadFromUser(string message)
     {
-        Context.Add(ChatMessage.FromUser(message, name));
+        Context.Add(ChatMessage.FromUser(message));
     }
 
+    public void LoadFromEmma(string message)
+    {
+        Context.Add(ChatMessage.FromAssistant(message));
+    }
 
 
     /// <summary>
@@ -119,6 +123,48 @@ public class IAModelBuilder
             lista.Add(GetActualContext());
             lista.Add(ChatMessage.FromUser(message));
 
+
+            var completionResult = await Service.ChatCompletion.CreateCompletion(new()
+            {
+                Messages = lista,
+                Model = Models.Gpt_3_5_Turbo_16k_0613
+            });
+
+
+            return new()
+            {
+                Content = completionResult.Choices.FirstOrDefault()?.Message.Content ?? "Error de Emma al contestar",
+                IsSuccess = completionResult.Successful
+            };
+
+        }
+        catch (Exception ex)
+        {
+            return new()
+            {
+                Content = ex.Message + " | " + ex.StackTrace,
+                IsSuccess = false
+            };
+        }
+
+
+    }
+
+
+
+    /// <summary>
+    /// Responder
+    /// </summary>
+    /// <param name="message">Mensaje</param>
+    public async Task<ResponseIAModel> Reply()
+    {
+        try
+        {
+
+            var lista = new List<ChatMessage>();
+            lista.AddRange(Context);
+
+            lista.Add(GetActualContext());
 
             var completionResult = await Service.ChatCompletion.CreateCompletion(new()
             {
