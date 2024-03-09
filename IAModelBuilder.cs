@@ -142,7 +142,7 @@ public class IAModelBuilder
         {
             return new()
             {
-                Content = ex.Message + " | " + ex.StackTrace,
+                Content = "Emma actualmente esta presentando problemas.",
                 IsSuccess = false
             };
         }
@@ -184,7 +184,7 @@ public class IAModelBuilder
         {
             return new()
             {
-                Content = ex.Message + " | " + ex.StackTrace,
+                Content = "Emma actualmente esta presentando problemas.",
                 IsSuccess = false
             };
         }
