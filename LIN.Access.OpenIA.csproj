@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Betalgo.OpenAI.Utilities" Version="7.0.3"/>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Tipos\LIN.Types.Emma\LIN.Types.Emma.csproj"/>
+        <ProjectReference Include="..\..\Tipos\LIN.Types.Emma\LIN.Types.Emma.csproj" />
     </ItemGroup>
 
 </Project>

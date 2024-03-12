@@ -1,7 +1,5 @@
-﻿using LIN.Types.Emma.Models;
-using OpenAI.Managers;
-using OpenAI.ObjectModels;
-using OpenAI.ObjectModels.RequestModels;
+﻿using LIN.Access.OpenIA.Models;
+using LIN.Types.Emma.Models;
 
 namespace LIN.Access.OpenIA;
 
@@ -9,16 +7,12 @@ namespace LIN.Access.OpenIA;
 public class IAModelBuilder
 {
 
-    /// <summary>
-    /// Servicio de Open IA
-    /// </summary>
-    private OpenAIService Service { get; set; }
 
 
     /// <summary>
     /// Lista base de mensajes
     /// </summary>
-    private List<ChatMessage> Context { get; set; }
+    private List<Message> Context { get; set; } = [];
 
 
 
@@ -26,15 +20,9 @@ public class IAModelBuilder
     /// Nueva IA
     /// </summary>
     /// <param name="apiKey">Api key de OpenIA</param>
-    public IAModelBuilder(string apiKey)
+    public IAModelBuilder()
     {
-        Service = new(new()
-        {
-            ApiKey = apiKey
-        });
 
-        Service.SetDefaultModelId(Models.Davinci);
-        Context = new();
     }
 
 
@@ -44,9 +32,20 @@ public class IAModelBuilder
     /// Carga un contexto.
     /// </summary>
     /// <param name="message">Mensaje</param>
-    public void Load(ChatMessage message)
+    public void Load(Message message)
     {
         Context.Add(message);
+    }
+
+
+
+    /// <summary>
+    /// Carga un contexto.
+    /// </summary>
+    /// <param name="message">Mensaje</param>
+    public void Load(List<Message> message)
+    {
+        Context.AddRange(message);
     }
 
 
@@ -56,33 +55,33 @@ public class IAModelBuilder
     /// <param name="message">Mensaje</param>
     public void Load(string message)
     {
-        Context.Add(ChatMessage.FromSystem(message));
+        Context.Add(Message.FromSystem(message));
     }
 
 
     public void LoadFromUser(string message)
     {
-        Context.Add(ChatMessage.FromUser(message));
+        Context.Add(Message.FromUser(message));
     }
 
     public void LoadFromEmma(string message)
     {
-        Context.Add(ChatMessage.FromAssistant(message));
+        Context.Add(Message.FromAssistant(message));
     }
 
 
     /// <summary>
     /// Carga la personalidad de Emma.
     /// </summary>
-    private ChatMessage GetActualContext()
+    private Message GetActualContext()
     {
 
         var context = $"""
-                       Importante para el contexto:
-                       - La fecha actual es {DayMont(DateTime.Now.DayOfWeek)}{DateTime.Now.Day} de {DateTime.Now:MMMM} del año {DateTime.Now:yyyy}
+                       IMPORTANTE para el contexto:
+                       - La fecha actual es {DayMont(DateTime.Now.DayOfWeek)} {DateTime.Now.Day} de {DateTime.Now:MMMM} del año {DateTime.Now:yyyy}
                        """;
 
-        return ChatMessage.FromSystem(context);
+        return Message.FromSystem(context);
     }
 
 
@@ -117,24 +116,23 @@ public class IAModelBuilder
         try
         {
 
-            var lista = new List<ChatMessage>();
+            var lista = new List<Message>();
+
+ // lista.Add(GetActualContext());
             lista.AddRange(Context);
 
-            lista.Add(GetActualContext());
-            lista.Add(ChatMessage.FromUser(message));
+         
+            lista.Add(Message.FromUser(message));
 
 
-            var completionResult = await Service.ChatCompletion.CreateCompletion(new()
-            {
-                Messages = lista,
-                Model = Models.Gpt_3_5_Turbo_16k_0613
-            });
+            var completionResult = await Service.Http.Ask(lista);
+
 
 
             return new()
             {
-                Content = completionResult.Choices.FirstOrDefault()?.Message.Content ?? "Error de Emma al contestar",
-                IsSuccess = completionResult.Successful
+                Content = completionResult?.Content ?? "Error de Emma al contestar",
+                IsSuccess = completionResult is not null
             };
 
         }
@@ -161,22 +159,21 @@ public class IAModelBuilder
         try
         {
 
-            var lista = new List<ChatMessage>();
+            var lista = new List<Message>(); 
+          //  lista.Add(GetActualContext());
             lista.AddRange(Context);
 
-            lista.Add(GetActualContext());
+           
 
-            var completionResult = await Service.ChatCompletion.CreateCompletion(new()
-            {
-                Messages = lista,
-                Model = Models.Gpt_3_5_Turbo_16k_0613
-            });
+
+            var completionResult = await Service.Http.Ask(lista);
+
 
 
             return new()
             {
-                Content = completionResult.Choices.FirstOrDefault()?.Message.Content ?? "Error de Emma al contestar",
-                IsSuccess = completionResult.Successful
+                Content = completionResult?.Content ?? "Error de Emma al contestar",
+                IsSuccess = completionResult is not null
             };
 
         }
@@ -191,6 +188,9 @@ public class IAModelBuilder
 
 
     }
+
+
+
 
 
 
