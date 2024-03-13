@@ -18,19 +18,6 @@ internal class Http
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {OpenIA.ApiKey}");
 
 
-            var fromSystem = messages.Where(t => t.Role == Roles.System).ToList();
-
-            messages.RemoveAll(t => t.Role == Roles.System);
-
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (var message in fromSystem ?? [])
-            {
-                stringBuilder.AppendLine(message.Content.ToString());
-            }
-
-            messages.Insert(0, Message.FromSystem(stringBuilder.ToString()));
-
-
             var requestData = new
             {
                 model = "gpt-3.5-turbo-0125",
