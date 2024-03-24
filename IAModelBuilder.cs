@@ -136,7 +136,7 @@ public class IAModelBuilder
             };
 
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return new()
             {
@@ -177,7 +177,7 @@ public class IAModelBuilder
             };
 
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return new()
             {

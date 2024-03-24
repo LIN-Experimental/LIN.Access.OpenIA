@@ -3,7 +3,7 @@
 public class OpenIA
 {
 
-    internal static string ApiKey { get; set; }
+    internal static string ApiKey { get; set; } = string.Empty;
 
     public static void SetKey(string key)
     {
