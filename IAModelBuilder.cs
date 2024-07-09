@@ -118,10 +118,10 @@ public class IAModelBuilder
 
             var lista = new List<Message>();
 
- // lista.Add(GetActualContext());
+            // lista.Add(GetActualContext());
             lista.AddRange(Context);
 
-         
+
             lista.Add(Message.FromUser(message));
 
 
@@ -159,11 +159,11 @@ public class IAModelBuilder
         try
         {
 
-            var lista = new List<Message>(); 
-          //  lista.Add(GetActualContext());
+            var lista = new List<Message>();
+            //  lista.Add(GetActualContext());
             lista.AddRange(Context);
 
-           
+
 
 
             var completionResult = await Service.Http.Ask(lista);
