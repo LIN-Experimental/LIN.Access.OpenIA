@@ -10,15 +10,12 @@ public class ChatCompletionResponse
     public string SystemFingerprint { get; set; } = string.Empty;
 }
 
-
 public class Choice
 {
     public int Index { get; set; }
     public Message Message { get; set; } = null!;
-    public object Logprobs { get; set; } = null!;
     public string FinishReason { get; set; } = string.Empty;
 }
-
 
 public class Usage
 {

@@ -19,12 +19,12 @@ internal class Http
 
             var requestData = new
             {
-               model = "gpt-3.5-turbo-0125",
-               //  model = "gpt-4o",
+                // model = "gpt-3.5-turbo-0125",
+                model = "gpt-4o-mini",
                 //   model = "gpt-4-turbo",
                 messages = messages.Select(t => new
                 {
-                    role = t.Role.ToString().ToLower(),
+                    role = t.Rol.ToString().ToLower(),
                     content = t.Content
                 }),
                 temperature = 1,

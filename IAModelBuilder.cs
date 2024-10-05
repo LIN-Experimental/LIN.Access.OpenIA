@@ -3,29 +3,13 @@ using LIN.Types.Emma.Models;
 
 namespace LIN.Access.OpenIA;
 
-
 public class IAModelBuilder
 {
-
-
 
     /// <summary>
     /// Lista base de mensajes
     /// </summary>
     private List<Message> Context { get; set; } = [];
-
-
-
-    /// <summary>
-    /// Nueva IA
-    /// </summary>
-    /// <param name="apiKey">Api key de OpenIA</param>
-    public IAModelBuilder()
-    {
-
-    }
-
-
 
 
     /// <summary>
@@ -36,7 +20,6 @@ public class IAModelBuilder
     {
         Context.Add(message);
     }
-
 
 
     /// <summary>
@@ -56,54 +39,6 @@ public class IAModelBuilder
     public void Load(string message)
     {
         Context.Add(Message.FromSystem(message));
-    }
-
-
-    public void LoadFromUser(string message)
-    {
-        Context.Add(Message.FromUser(message));
-    }
-
-    public void LoadFromEmma(string message)
-    {
-        Context.Add(Message.FromAssistant(message));
-    }
-
-
-    /// <summary>
-    /// Carga la personalidad de Emma.
-    /// </summary>
-    private Message GetActualContext()
-    {
-
-        var context = $"""
-                       IMPORTANTE para el contexto:
-                       - La fecha actual es {DayMont(DateTime.Now.DayOfWeek)} {DateTime.Now.Day} de {DateTime.Now:MMMM} del año {DateTime.Now:yyyy}
-                       """;
-
-        return Message.FromSystem(context);
-    }
-
-
-    private string DayMont(DayOfWeek day)
-    {
-
-        if (day == DayOfWeek.Sunday)
-            return "domingo";
-        if (day == DayOfWeek.Friday)
-            return "viernes";
-        if (day == DayOfWeek.Wednesday)
-            return "miércoles";
-        if (day == DayOfWeek.Monday)
-            return "lunes";
-        if (day == DayOfWeek.Tuesday)
-            return "martes";
-        if (day == DayOfWeek.Saturday)
-            return "Sabado";
-        if (day == DayOfWeek.Thursday)
-            return "jueves";
-
-        return day.ToString();
     }
 
 
@@ -149,7 +84,6 @@ public class IAModelBuilder
     }
 
 
-
     /// <summary>
     /// Responder
     /// </summary>
@@ -159,16 +93,13 @@ public class IAModelBuilder
         try
         {
 
+            // Lista de mensajes.
             var lista = new List<Message>();
+
             //  lista.Add(GetActualContext());
             lista.AddRange(Context);
 
-
-
-
             var completionResult = await Service.Http.Ask(lista);
-
-
 
             return new()
             {
