@@ -1,5 +1,4 @@
 ﻿using LIN.Access.OpenIA.Models;
-using LIN.Types.Emma.Models;
 
 namespace LIN.Access.OpenIA;
 
@@ -46,7 +45,7 @@ public class IAModelBuilder
     /// Responder
     /// </summary>
     /// <param name="message">Mensaje</param>
-    public async Task<ResponseIAModel> Reply(string message)
+    public async Task<LIN.Types.Cloud.OpenAssistant.Api.AssistantResponse> Reply(string message)
     {
         try
         {
@@ -66,8 +65,7 @@ public class IAModelBuilder
 
             return new()
             {
-                Content = completionResult?.Content ?? "Error de Emma al contestar",
-                IsSuccess = completionResult is not null
+                Content = completionResult?.Content ?? "Error de Emma al contestar"
             };
 
         }
@@ -75,8 +73,7 @@ public class IAModelBuilder
         {
             return new()
             {
-                Content = "Emma actualmente esta presentando problemas.",
-                IsSuccess = false
+                Content = "Emma actualmente esta presentando problemas."
             };
         }
 
@@ -88,7 +85,7 @@ public class IAModelBuilder
     /// Responder
     /// </summary>
     /// <param name="message">Mensaje</param>
-    public async Task<ResponseIAModel> Reply()
+    public async Task<Types.Cloud.OpenAssistant.Api.AssistantResponse> Reply()
     {
         try
         {
@@ -103,8 +100,7 @@ public class IAModelBuilder
 
             return new()
             {
-                Content = completionResult?.Content ?? "Error de Emma al contestar",
-                IsSuccess = completionResult is not null
+                Content = completionResult?.Content ?? "Error de Emma al contestar"
             };
 
         }
@@ -112,8 +108,7 @@ public class IAModelBuilder
         {
             return new()
             {
-                Content = "Emma actualmente esta presentando problemas.",
-                IsSuccess = false
+                Content = "Emma actualmente esta presentando problemas."
             };
         }
 
