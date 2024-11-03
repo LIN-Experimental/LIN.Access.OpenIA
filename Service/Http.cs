@@ -1,4 +1,5 @@
 ﻿using LIN.Access.OpenIA.Models;
+using Newtonsoft.Json;
 
 namespace LIN.Access.OpenIA.Service;
 
@@ -6,7 +7,7 @@ internal class Http
 {
 
 
-    public static async Task<Message?> Ask(List<Message> messages)
+    public static async Task<Message?> Ask(List<Message> messages, string schema)
     {
 
         // Servicio.
@@ -28,7 +29,8 @@ internal class Http
             max_tokens = 256,
             top_p = 1,
             frequency_penalty = 0,
-            presence_penalty = 0
+            presence_penalty = 0,
+            response_format = JsonConvert.DeserializeObject(schema)
         };
 
         // Obtener respuesta.

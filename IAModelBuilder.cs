@@ -5,6 +5,13 @@ namespace LIN.Access.OpenIA;
 public class IAModelBuilder
 {
 
+
+    /// <summary>
+    /// Esquema de respuesta.
+    /// </summary>
+    public string Schema { get; set; } = "{\"type\": \"text\"}";
+
+
     /// <summary>
     /// Lista base de mensajes
     /// </summary>
@@ -59,7 +66,7 @@ public class IAModelBuilder
             lista.Add(Message.FromUser(message));
 
 
-            var completionResult = await Service.Http.Ask(lista);
+            var completionResult = await Service.Http.Ask(lista,Schema);
 
 
 
@@ -96,7 +103,7 @@ public class IAModelBuilder
             //  lista.Add(GetActualContext());
             lista.AddRange(Context);
 
-            var completionResult = await Service.Http.Ask(lista);
+            var completionResult = await Service.Http.Ask(lista, Schema);
 
             return new()
             {
