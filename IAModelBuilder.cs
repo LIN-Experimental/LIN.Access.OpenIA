@@ -61,13 +61,9 @@ public class IAModelBuilder
             // lista.Add(GetActualContext());
             lista.AddRange(Context);
 
-
             lista.Add(Message.FromUser(message));
 
-
             var completionResult = await Service.Http.Ask(lista,Schema);
-
-
 
             return new()
             {
@@ -120,10 +116,5 @@ public class IAModelBuilder
 
 
     }
-
-
-
-
-
 
 }
