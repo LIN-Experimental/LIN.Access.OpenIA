@@ -6,7 +6,6 @@ namespace LIN.Access.OpenIA.Service;
 internal class Http
 {
 
-
     public static async Task<Message?> Ask(List<Message> messages, string schema)
     {
 

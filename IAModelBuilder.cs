@@ -5,7 +5,6 @@ namespace LIN.Access.OpenIA;
 public class IAModelBuilder
 {
 
-
     /// <summary>
     /// Esquema de respuesta.
     /// </summary>
