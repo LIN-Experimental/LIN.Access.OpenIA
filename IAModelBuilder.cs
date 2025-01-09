@@ -63,7 +63,7 @@ public class IAModelBuilder
 
             lista.Add(Message.FromUser(message));
 
-            var completionResult = await Service.Http.Ask(lista,Schema);
+            var completionResult = await Service.Http.Ask(lista, Schema);
 
             return new()
             {
