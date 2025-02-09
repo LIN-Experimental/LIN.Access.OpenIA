@@ -1,4 +1,7 @@
-﻿namespace LIN.Access.OpenIA.Models;
+﻿using LIN.Types.Cloud.OpenAssistant.Abstractions;
+
+namespace LIN.Access.OpenIA.Models;
+
 public class ChatCompletionResponse
 {
     public string Id { get; set; } = string.Empty;

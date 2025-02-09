@@ -1,4 +1,5 @@
 ﻿using LIN.Access.OpenIA.Models;
+using LIN.Types.Cloud.OpenAssistant.Abstractions;
 using Newtonsoft.Json;
 
 namespace LIN.Access.OpenIA.Service;
@@ -41,7 +42,6 @@ internal class Http
         var response = await client.Post<ChatCompletionResponse>(requestData);
 
         return response?.Choices.FirstOrDefault()?.Message;
-
     }
 
 }

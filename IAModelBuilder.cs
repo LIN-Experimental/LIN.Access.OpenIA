@@ -1,4 +1,4 @@
-﻿using LIN.Access.OpenIA.Models;
+﻿using LIN.Types.Cloud.OpenAssistant.Abstractions;
 
 namespace LIN.Access.OpenIA;
 
@@ -67,7 +67,7 @@ public class IAModelBuilder
 
             return new()
             {
-                Content = completionResult?.Content ?? "Error de Emma al contestar"
+                Content = completionResult?.Content ?? "Error"
             };
 
         }
@@ -75,7 +75,7 @@ public class IAModelBuilder
         {
             return new()
             {
-                Content = "Emma actualmente esta presentando problemas."
+                Content = "Error"
             };
         }
 
@@ -102,7 +102,7 @@ public class IAModelBuilder
 
             return new()
             {
-                Content = completionResult?.Content ?? "Error de Emma al contestar"
+                Content = completionResult?.Content ?? "Error."
             };
 
         }
@@ -110,11 +110,8 @@ public class IAModelBuilder
         {
             return new()
             {
-                Content = "Emma actualmente esta presentando problemas."
+                Content = "Error."
             };
         }
-
-
     }
-
 }
