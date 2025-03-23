@@ -11,7 +11,7 @@
 	<ItemGroup>
 		<PackageReference Include="Global.Http" Version="3.4.0" />
 		<PackageReference Include="LIN.Types.Cloud.OpenAssistant" Version="1.5.0" />
-		<PackageReference Include="System.Text.Json" Version="9.0.1" />
+		<PackageReference Include="System.Text.Json" Version="9.0.3" />
 	</ItemGroup>
 </Project>
 
